@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>welcome user</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        img:hover {
+            transform: scale(1.05);
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body onload="openTabs()">
+    <div class="container">
+        <h1>Click the Image</h1>
+        <img id="image" src="Download/You-are-an-idiot.gif" alt="Click me to open tabs" onclick="openTabs()">
+        <p>Click the image to start virus simulator</p>
+    </div>
+    <audio id="audio" src="Download/you-are-an-idiot.mp3" loop autoplay></audio>
+    <script>
+        function openTabs() {
+            var audio = document.getElementById("audio");
+            audio.play();
+
+            function closeTabs() {
+                for (var i = 0; i < 3; i++) {
+                    var tab = tabs.pop();
+                    if (tab && !tab.closed) {
+                        tab.close();
+                    }
+                }
+                openTabs(); // Open new tabs
+            }
+
+            var tabs = [];
+            var imgSrc = document.getElementById("image").src;
+            var screenWidth = window.screen.width;
+            var screenHeight = window.screen.height;
+
+            function createPopup() {
+                var popup = window.open("", "_blank", "left=" + Math.floor(Math.random() * screenWidth) + ",top=" + Math.floor(Math.random() * screenHeight) + ",width=400,height=400");
+                popup.document.write("<style>body { margin: 0; overflow: hidden; } .popup { position: absolute; animation: dance 5s infinite; } @keyframes dance { 0% { transform: translate(0, 0); } 25% { transform: translate(50px, 50px); } 50% { transform: translate(100px, 0); } 75% { transform: translate(50px, -50px); } 100% { transform: translate(0, 0); } }</style><div class='popup'><img src='" + imgSrc + "' style='max-width: 100%; max-height: 100%;'></div>");
+                tabs.push(popup);
+            }
+
+            for (var i = 0; i < 3; i++) {
+                createPopup();
+            }
+
+            setTimeout(closeTabs, 3000);
+        }
+    </script>
+</body>
+</html>
